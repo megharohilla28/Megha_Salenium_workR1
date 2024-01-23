@@ -1,0 +1,53 @@
+package SauceDemoTestScript;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+//import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.edge.EdgeDriver;
+import org.testng.Assert;
+//import org.testng.annotations.AfterMethod;
+//import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
+import io.github.bonigarcia.wdm.WebDriverManager;
+public class Product {
+	@Test
+	public void productTestCase1() throws InterruptedException
+	{
+		//WebDriverManager.chromedriver().setup();
+		WebDriverManager.edgedriver().setup();
+		//driver=new ChromeDriver();
+		WebDriver driver=new EdgeDriver();
+		//WebDriverManager.chromedriver().setup();
+	//	WebDriver driver=new ChromeDriver();
+		//driver.get("https://www.youtube.com/");
+		driver.get("https://www.saucedemo.com/");
+		//System.out.println("Pass Product");
+		System.out.println("Pass Product");
+		Thread.sleep(2000);
+		driver.findElement(By.id("user-name")).sendKeys("standard_user");
+		Thread.sleep(2000);
+		System.out.println("Pass Product");
+		driver.findElement(By.id("password")).sendKeys("secret_sauce");
+		Thread.sleep(2000);
+		driver.findElement(By.id("login-button")).click();	
+		Thread.sleep(2000);
+		driver.findElement(By.xpath("//button[@id='add-to-cart-sauce-labs-backpack'][1]")).click();
+		Thread.sleep(2000);
+		driver.findElement(By.xpath("//button[@id='add-to-cart-sauce-labs-bike-light']")).click();
+		Thread.sleep(2000);
+		driver.findElement(By.xpath("//button[@id='add-to-cart-sauce-labs-fleece-jacket']")).click();
+		Thread.sleep(2000);
+		
+		String item_Count=driver.findElement(By.xpath("//span[@class='shopping_cart_badge']")).getText();
+		System.out.println(item_Count);
+		//Assert.assertEquals(false, null);
+		Assert.assertEquals(item_Count,"3");
+		System.out.println("Pass Product");
+		
+	}
+	@Test
+	public void productTestCase2()
+	{
+		System.out.println("Test Case 2");
+		
+	}
+}
