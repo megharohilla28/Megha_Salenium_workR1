@@ -1,0 +1,100 @@
+package SauceDemoTestScript;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.edge.EdgeDriver;
+import org.testng.Assert;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
+import io.github.bonigarcia.wdm.WebDriverManager;
+
+public class Login {
+	String expected_Result;
+	WebDriver driver;
+	@BeforeMethod
+	public void browser_Setup()
+	{
+		//WebDriverManager.chromedriver().setup();
+		WebDriverManager.edgedriver().setup();
+		//driver=new ChromeDriver();
+		driver=new EdgeDriver();
+		driver.get("https://www.saucedemo.com/");
+	}
+	
+	@Test
+	public void login_by_standard_user1() 
+	{			
+		driver.findElement(By.id("user-name")).sendKeys("standard_user");
+		driver.findElement(By.id("password")).sendKeys("secret_sauce");
+		driver.findElement(By.id("login-button")).click();	
+		System.out.println("standard_user_1 is Tring to login");
+		expected_Result=driver.findElement(By.xpath("//span[@class=\"title\"]")).getText();
+		Assert.assertEquals(expected_Result, "Products");
+	}
+	
+	@Test
+	public void test_By_problem_user3() throws InterruptedException
+	{
+		driver.findElement(By.id("user-name")).sendKeys("problem_user");
+		driver.findElement(By.id("password")).sendKeys("secret_sauce");
+		driver.findElement(By.id("login-button")).click();
+		System.out.println("problem_user_3 is Tring to login");
+		expected_Result=driver.findElement(By.xpath("//span[@class=\"title\"]")).getText();
+		Assert.assertEquals(expected_Result, "Products");
+		
+	}
+	@Test
+	public void test_By_performance_glitch_user4() throws InterruptedException
+	{
+		driver.findElement(By.id("user-name")).sendKeys("performance_glitch_user");
+		driver.findElement(By.id("password")).sendKeys("secret_sauce");
+		driver.findElement(By.id("login-button")).click();
+		System.out.println("performance_glitch_user_4 is Tring to login");
+	    expected_Result=driver.findElement(By.xpath("//span[@class=\"title\"]")).getText();
+	    Assert.assertEquals(expected_Result, "Products");
+	}
+	@Test
+	public void test_By_error_user5() throws InterruptedException
+	{
+		driver.findElement(By.id("user-name")).sendKeys("error_user");
+		driver.findElement(By.id("password")).sendKeys("secret_sauce");
+		driver.findElement(By.id("login-button")).click();
+		System.out.println("error_user_5 is Tring to login");
+		expected_Result=driver.findElement(By.xpath("//span[@class=\"title\"]")).getText();
+		Assert.assertEquals(expected_Result, "Products");
+	}
+	@Test
+	public void test_By_visual_user6() throws InterruptedException
+	{
+		driver.findElement(By.id("user-name")).sendKeys("visual_use");
+		driver.findElement(By.id("password")).sendKeys("secret_sauce");
+		driver.findElement(By.id("login-button")).click();
+		System.out.println("visual_user_6 is Tring to login");
+		Assert.assertEquals(expected_Result, "Products");
+    	expected_Result=driver.findElement(By.xpath("//span[@class=\"title\"]")).getText();
+	}
+	@Test
+	public void test_By_locked_out_user2() throws InterruptedException
+	{
+		Thread.sleep(1000);	
+		driver.findElement(By.id("user-name")).sendKeys("locked_out_user");
+		driver.findElement(By.id("password")).sendKeys("secret_sauce");
+	 	driver.findElement(By.id("login-button")).click();
+	 	System.out.println("locked_out_user_2 is Tring to login");
+	 	expected_Result=driver.findElement(By.tagName("h3")).getText();
+	 	Assert.assertEquals(expected_Result, "Epic sadface: Sorry, this user has been locked out.");
+    	expected_Result=driver.findElement(By.xpath("//span[@class=\"title\"]")).getText();
+	}
+	@AfterMethod
+	public void finding_Login_Status() throws InterruptedException
+	{
+		Thread.sleep(1000);
+		driver.quit();
+		System.out.println("Test Case Status");
+		Thread.sleep(1000);
+	}
+	
+
+}
